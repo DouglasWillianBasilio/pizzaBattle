@@ -1,6 +1,6 @@
 class Overworld {
  constructor(config) {
-   this.element = config.elemen
+   this.element = config.element
    // Configuração do objeto Overworld
    this.canvas = this.element.querySelector(".game-canvas");
    this.ctx = this.canvas.getContext("2d");
@@ -40,8 +40,7 @@ class Overworld {
    const hero = new Image();
    hero.onload = () => {
      this.ctx.drawImage(
-       hero, 
-       ow, 
+      hero,
       0, // Posição do corte à esquerda 
       0, // Posição do corte superior
       32, // Largura do corte
