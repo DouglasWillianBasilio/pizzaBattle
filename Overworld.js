@@ -14,44 +14,23 @@ class Overworld {
    };
    image.src = "/images/maps/DemoLower.png";
 
+ //Place some game objects!
 
-  // Definindo as coordenadas do personagem e sombra
-   const x = 5;
-   const y = 6;
+   const hero = new GameObject ({
+    x: 5,
+    y: 6,
+   })
+   const npc1 = new GameObject ({
+    x: 7,
+    y: 9,
+    src: "/images/characters/people/npc1.png"
+   })
 
-   // Carregando a imagem da sombra
-   const shadow = new Image();
-   shadow.onload = () => {
-    this.ctx.drawImage(
-      shadow, 
-      0, // Posição do corte à esquerda 
-      0, // Posição do corte superior
-      32, // Largura do corte
-      32, // Altura do corte
-      x * 16 - 8, // Posição x da sombra
-      y * 16 - 18, // Posição y da sombra
-      32, // Largura da imagem
-      32 // Altura da imagem
-   )
-   }
-   shadow.src = "/images/characters/shadow.png";
-
-   // Carregando a imagem do personagem
-   const hero = new Image();
-   hero.onload = () => {
-     this.ctx.drawImage(
-      hero,
-      0, // Posição do corte à esquerda 
-      0, // Posição do corte superior
-      32, // Largura do corte
-      32, // Altura do corte
-      x * 16 - 8, // Posição x da sombra
-      y * 16 - 18, // Posição y da sombra
-      32, // Largura da imagem
-      32 // Altura da imagem
-    )
-   }
-   hero.src = "/images/characters/people/hero.png";
+   
+  setTimeout(() => {
+    hero.sprite.draw(this.ctx);
+    npc1.sprite.draw(this.ctx);
+   }, 200)
 
 
  }
