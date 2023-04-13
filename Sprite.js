@@ -3,7 +3,9 @@ class Sprite {
 
     // Configuração da imagem
     this.image = new Image(); // cria uma nova instância da classe Image() do JavaScript para carregar a imagem
+
     this.image.src = config.src; // atribui o caminho da imagem passado como argumento para a propriedade src da imagem
+    
     this.image.onload = () => { // adiciona um listener para o evento onload, que será disparado quando a imagem for carregada
       this.isLoaded = true; // define a propriedade isLoaded como true para indicar que a imagem foi carregada com sucesso
     }
