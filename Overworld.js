@@ -42,7 +42,7 @@ class Overworld {
   // Inicializa o ambiente de jogo
   init() {
     // Define um mapa para o ambiente de jogo
-    this.map = new OverworldMap(window.OverworldMaps.Kitchen);
+    this.map = new OverworldMap(window.OverworldMaps.DemoRoom);
     // Inicia o loop do jogo
     this.startGameLoop();
   }
