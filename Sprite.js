@@ -35,8 +35,8 @@ class Sprite {
 
   // Método para desenhar o sprite na tela
   draw(ctx) {
-    const x = this.gameObject.x * 16 - 8; // calcula a posição x do sprite na tela usando as coordenadas do objeto de jogo
-    const y = this.gameObject.y * 16 - 18; // calcula a posição y do sprite na tela usando as coordenadas do objeto de jogo
+    const x = this.gameObject.x  - 8; // calcula a posição x do sprite na tela usando as coordenadas do objeto de jogo
+    const y = this.gameObject.y  - 18; // calcula a posição y do sprite na tela usando as coordenadas do objeto de jogo
 
     // Desenha a sombra se estiver carregada
     this.isShadowLoaded && ctx.drawImage(this.shadow, x, y);

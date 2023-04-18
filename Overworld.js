@@ -23,7 +23,9 @@ class Overworld {
 
       // Atualiza a posição dos objetos do jogo e desenha seus sprites
       Object.values(this.map.gameObjects).forEach(object => {
-        object.x += 0.02;
+        object.update({
+          arrow: this.directionInput.direction
+        })
         object.sprite.draw(this.ctx);
       });
 
@@ -43,6 +45,10 @@ class Overworld {
   init() {
     // Define um mapa para o ambiente de jogo
     this.map = new OverworldMap(window.OverworldMaps.DemoRoom);
+
+    this.directionInput = new DirectionInput();
+    this.directionInput.init();
+
     // Inicia o loop do jogo
     this.startGameLoop();
   }
