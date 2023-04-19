@@ -24,6 +24,7 @@ class Person extends GameObject {
     update(state) {
         // Atualiza a posição do personagem
         this.updatePosition();
+        this.updateSprite(state);
 
         // Verifica se o personagem é controlado pelo jogador, se há uma seta pressionada e se o personagem não está em movimento
         if(this.isPlayerControlled && this.movingProgressRemaning === 0 && state.arrow){
@@ -44,6 +45,18 @@ class Person extends GameObject {
             this[property] += change;
             // Decrementa o tempo de movimento restante
             this.movingProgressRemaning -= 1;
+        }
+    }
+
+    updateSprite(state) {
+        if(this.isPlayerControlled && this.movingProgressRemaning === 0 && !state.arrow) {
+            this.sprite.setAnimation("idle-" + this.direction);
+            return;
+        }
+        
+
+        if(this.movingProgressRemaning > 0) {
+            this.sprite.setAnimation("walk-" + this.direction);
         }
     }
 }

@@ -22,15 +22,50 @@ class Sprite {
 
     // Configuração da animação e estado inicial
     this.animations = config.animations || { // define as animações a serem usadas (por padrão, uma animação de idleDown será usada)
-      idleDown: [
-        [0,0]
-      ]
+      "idle-down":  [ [0,0] ],
+      "idle-right": [ [0,1] ],
+      "idle-up":    [ [0,2] ],
+      "idle-left":  [ [0,3] ],
+      "walk-down":  [ [1,0], [0,0], [3,0], [0,0] ],
+      "walk-right": [ [1,1], [0,1], [3,1], [0,1] ],
+      "walk-up":    [ [1,2], [0,2], [3,2], [0,2] ],
+      "walk-left":  [ [1,3], [0,3], [3,3], [0,3] ]
     }
-    this.currentAnimation = config.currentAnimation || "idleDown"; // define a animação atual a ser usada (por padrão, a animação de idleDown será usada)
+    this.currentAnimation = "walk-right"; //config.currentAnimation || "idleDown"; // define a animação atual a ser usada (por padrão, a animação de idleDown será usada)
     this.currentAnimationFrame = 0; // define o frame atual da animação como zero
+
+    this.animationFrameLimit = config.animationFrameLimit || 8;
+    this.animationFrameProgress = this.animationFrameLimit;
 
     // Referência para o objeto de jogo
     this.gameObject = config.gameObject; // armazena uma referência para o objeto de jogo para poder acessar as coordenadas do objeto e desenhar o sprite na posição correta
+  }
+
+  get frame() {
+    return this.animations[this.currentAnimation] [this.currentAnimationFrame];
+  }
+
+  setAnimation(key) {
+    if(this.currentAnimation !== key) {
+      this.currentAnimation = key;
+      this.currentAnimationFrame = 0;
+      this.animationFrameProgress = this.animationFrameLimit;
+    }
+  }
+
+  updateAnimationsProgress() {
+    if(this.animationFrameProgress > 0 ) {
+      this.animationFrameProgress -= 1;
+      return;
+    }
+
+    this.animationFrameProgress = this.animationFrameLimit;
+    this.currentAnimationFrame += 1;
+
+    if(this.frame === undefined) {
+      this.currentAnimationFrame = 0;
+    }
+
   }
 
   // Método para desenhar o sprite na tela
@@ -41,12 +76,19 @@ class Sprite {
     // Desenha a sombra se estiver carregada
     this.isShadowLoaded && ctx.drawImage(this.shadow, x, y);
 
+
+    const [frameX, frameY] = this.frame;
+
     // Desenha o sprite se a imagem estiver carregada
     this.isLoaded && ctx.drawImage(this.image,
-      0,0,
+      frameX * 32 , frameY * 32,
       32,32,
       x,y,
       32,32
     )
+
+    this.updateAnimationsProgress();
   }
+
+  
 }
