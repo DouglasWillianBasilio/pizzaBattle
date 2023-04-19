@@ -41,32 +41,43 @@ class Sprite {
     this.gameObject = config.gameObject; // armazena uma referência para o objeto de jogo para poder acessar as coordenadas do objeto e desenhar o sprite na posição correta
   }
 
-  get frame() {
-    return this.animations[this.currentAnimation] [this.currentAnimationFrame];
-  }
+  // O método get retorna o frame atual da animação
+get frame() {
+  return this.animations[this.currentAnimation][this.currentAnimationFrame];
+}
 
-  setAnimation(key) {
-    if(this.currentAnimation !== key) {
-      this.currentAnimation = key;
-      this.currentAnimationFrame = 0;
-      this.animationFrameProgress = this.animationFrameLimit;
-    }
-  }
-
-  updateAnimationsProgress() {
-    if(this.animationFrameProgress > 0 ) {
-      this.animationFrameProgress -= 1;
-      return;
-    }
-
+// O método setAnimation define a animação atual e reseta a contagem de frames
+setAnimation(key) {
+  // Se a animação atual já for a mesma que a animação desejada, não faz nada
+  if (this.currentAnimation !== key) {
+    // Define a nova animação
+    this.currentAnimation = key;
+    // Reseta a contagem de frames
+    this.currentAnimationFrame = 0;
+    // Define o progresso do frame para o limite da animação
     this.animationFrameProgress = this.animationFrameLimit;
-    this.currentAnimationFrame += 1;
-
-    if(this.frame === undefined) {
-      this.currentAnimationFrame = 0;
-    }
-
   }
+}
+
+// O método updateAnimationsProgress avança a animação para o próximo frame, 
+// levando em consideração o limite de tempo de cada frame
+updateAnimationsProgress() {
+  // Se ainda não passou o tempo do frame atual, apenas diminui o progresso do frame
+  if (this.animationFrameProgress > 0) {
+    this.animationFrameProgress -= 1;
+    return;
+  }
+
+  // Se já passou o tempo do frame atual, avança para o próximo frame
+  this.animationFrameProgress = this.animationFrameLimit;
+  this.currentAnimationFrame += 1;
+
+  // Se não houver mais frames na animação atual, volta para o primeiro frame
+  if (this.frame === undefined) {
+    this.currentAnimationFrame = 0;
+  }
+}
+
 
   // Método para desenhar o sprite na tela
   draw(ctx) {

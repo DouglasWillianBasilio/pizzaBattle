@@ -48,14 +48,18 @@ class Person extends GameObject {
         }
     }
 
+    // Método que atualiza a animação do sprite do personagem com base na direção atual e no estado do movimento
     updateSprite(state) {
+        // Verifica se o personagem é controlado pelo jogador, não está em movimento e não há seta pressionada
         if(this.isPlayerControlled && this.movingProgressRemaning === 0 && !state.arrow) {
+            // Define a animação "idle" correspondente à direção atual
             this.sprite.setAnimation("idle-" + this.direction);
             return;
         }
-        
 
+        // Verifica se o personagem está em movimento
         if(this.movingProgressRemaning > 0) {
+            // Define a animação "walk" correspondente à direção atual
             this.sprite.setAnimation("walk-" + this.direction);
         }
     }
