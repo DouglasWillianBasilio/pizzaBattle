@@ -31,7 +31,7 @@ class Sprite {
       "walk-up":    [ [1,2], [0,2], [3,2], [0,2] ],
       "walk-left":  [ [1,3], [0,3], [3,3], [0,3] ]
     }
-    this.currentAnimation = "walk-right"; //config.currentAnimation || "idleDown"; // define a animação atual a ser usada (por padrão, a animação de idleDown será usada)
+    this.currentAnimation = "walk-up"; //config.currentAnimation || "idleDown"; // define a animação atual a ser usada (por padrão, a animação de idleDown será usada)
     this.currentAnimationFrame = 0; // define o frame atual da animação como zero
 
     this.animationFrameLimit = config.animationFrameLimit || 8;
@@ -80,9 +80,9 @@ updateAnimationsProgress() {
 
 
   // Método para desenhar o sprite na tela
-  draw(ctx) {
-    const x = this.gameObject.x  - 8; // calcula a posição x do sprite na tela usando as coordenadas do objeto de jogo
-    const y = this.gameObject.y  - 18; // calcula a posição y do sprite na tela usando as coordenadas do objeto de jogo
+  draw(ctx, cameraPerson) {
+    const x = this.gameObject.x  - 8 + utils.withGrid(10.5) - cameraPerson.x; // calcula a posição x do sprite na tela usando as coordenadas do objeto de jogo
+    const y = this.gameObject.y  - 18 + utils.withGrid(6) - cameraPerson.y; // calcula a posição y do sprite na tela usando as coordenadas do objeto de jogo
 
     // Desenha a sombra se estiver carregada
     this.isShadowLoaded && ctx.drawImage(this.shadow, x, y);

@@ -13,10 +13,10 @@ class Person extends GameObject {
 
         // Define uma tabela de atualização de direção, que associa cada direção (up, down, left, right) a uma propriedade do objeto (x ou y) e uma variação de valor (-1 ou 1)
         this.directionUpdate = {
-            "up": ["y", -1],
-            "down": ["y", 1],
-            "left": ["x", -1],
-            "right": ["x", 1],
+            "up":     ["y", -1],
+            "down":   ["y", 1],
+            "left":   ["x", -1],
+            "right":  ["x", 1],
         }
     }
 

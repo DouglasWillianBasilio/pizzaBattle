@@ -18,19 +18,25 @@ class Overworld {
       // Limpa o canvas
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-      // Desenha a imagem inferior do mapa
-      this.map.drawLowerImage(this.ctx);
+      const cameraPerson = this.map.gameObjects.hero;
 
-      // Atualiza a posição dos objetos do jogo e desenha seus sprites
       Object.values(this.map.gameObjects).forEach(object => {
         object.update({
           arrow: this.directionInput.direction
         })
-        object.sprite.draw(this.ctx);
-      });
+      })     
+
+      // Desenha a imagem inferior do mapa
+      this.map.drawLowerImage(this.ctx, cameraPerson);
+
+      // Atualiza a posição dos objetos do jogo e desenha seus sprites
+      Object.values(this.map.gameObjects).forEach(object => {
+        
+        object.sprite.draw(this.ctx, cameraPerson);
+      })
 
       // Desenha a imagem superior do mapa
-      this.map.drawUpperImage(this.ctx);
+      this.map.drawUpperImage(this.ctx, cameraPerson);
 
       // Chama novamente a função "step" para o próximo frame
       requestAnimationFrame(() => {
