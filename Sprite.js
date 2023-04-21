@@ -31,7 +31,7 @@ class Sprite {
       "walk-up":    [ [1,2], [0,2], [3,2], [0,2] ],
       "walk-left":  [ [1,3], [0,3], [3,3], [0,3] ]
     }
-    this.currentAnimation = "walk-up"; //config.currentAnimation || "idleDown"; // define a animação atual a ser usada (por padrão, a animação de idleDown será usada)
+    this.currentAnimation = "walk-down"; //config.currentAnimation || "idleDown"; // define a animação atual a ser usada (por padrão, a animação de idleDown será usada)
     this.currentAnimationFrame = 0; // define o frame atual da animação como zero
 
     this.animationFrameLimit = config.animationFrameLimit || 8;

@@ -18,13 +18,17 @@ class Overworld {
       // Limpa o canvas
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-      const cameraPerson = this.map.gameObjects.hero;
+      // Define uma variável 'cameraPerson' como o objeto 'hero' do objeto 'gameObjects' do objeto 'map'
+    const cameraPerson = this.map.gameObjects.hero;
 
-      Object.values(this.map.gameObjects).forEach(object => {
-        object.update({
-          arrow: this.directionInput.direction
-        })
-      })     
+// Itera sobre todos os valores dos objetos no objeto 'gameObjects' do objeto 'map'
+    Object.values(this.map.gameObjects).forEach(object => {
+  // Chama o método 'update' em cada objeto, passando um objeto com uma propriedade 'arrow' que contém a direção atual do objeto 'directionInput'
+    object.update({
+      arrow: this.directionInput.direction
+    })
+  })
+
 
       // Desenha a imagem inferior do mapa
       this.map.drawLowerImage(this.ctx, cameraPerson);
