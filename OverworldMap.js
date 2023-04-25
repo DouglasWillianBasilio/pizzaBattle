@@ -32,29 +32,31 @@ class OverworldMap {
         )
     }
 
-    isSpaceTaken(currentX, currentY, direction) {
-        const {x,y} = utils.nextPosition(currentX, currentY, direction);
-        return this.walls[`${x}, ${y}`] || false;
-    }
-
-    mountObjects() {
-        Object.values(this.gameObjects).forEach(o => {
-            o.mount(this);
-
+    isSpaceTaken(currentX, currentY, direction) { // Declaração do método "isSpaceTaken" que recebe as coordenadas "currentX" e "currentY" e a direção do movimento como parâmetros
+        const {x,y} = utils.nextPosition(currentX, currentY, direction); // Chama o método "nextPosition" do objeto "utils" passando as coordenadas e a direção como argumentos, e atribui o resultado às variáveis "x" e "y"
+        return this.walls[`${x}, ${y}`] || false; // Verifica se há uma parede na posição indicada pelas coordenadas "x" e "y" no objeto "walls". Retorna "true" se houver uma parede ou "false" caso contrário.
+      }
+      
+      mountObjects() { // Declaração do método "mountObjects"
+        Object.values(this.gameObjects).forEach(o => { // Percorre todos os objetos no objeto "gameObjects"
+          o.mount(this); // Chama o método "mount" de cada objeto, passando o objeto atual como argumento
         })
-    }
-
-    addWall(x,y) {
-        this.walls[`${x}, ${y}`] = true;
-    }
-    removeWall(x,y) {
-        delete this.walls[`${x}, ${y}`]
-    }
-    moveWall(wasX, wasY, direction) {
-        this.removeWall(wasX, wasY);
-        const {x,y} = utils.nextPosition(wasX, wasY, direction);
-        this.addWall(x,y);
-    }
+      }
+      
+      addWall(x,y) { // Declaração do método "addWall" que recebe as coordenadas "x" e "y" como parâmetros
+        this.walls[`${x}, ${y}`] = true; // Adiciona uma parede na posição indicada pelas coordenadas "x" e "y" no objeto "walls"
+      }
+      
+      removeWall(x,y) { // Declaração do método "removeWall" que recebe as coordenadas "x" e "y" como parâmetros
+        delete this.walls[`${x}, ${y}`]; // Remove a parede na posição indicada pelas coordenadas "x" e "y" do objeto "walls"
+      }
+      
+      moveWall(wasX, wasY, direction) { // Declaração do método "moveWall" que recebe as coordenadas anteriores "wasX" e "wasY" e a direção do movimento como parâmetros
+        this.removeWall(wasX, wasY); // Remove a parede na posição anterior indicada pelas coordenadas "wasX" e "wasY"
+        const {x,y} = utils.nextPosition(wasX, wasY, direction); // Chama o método "nextPosition" do objeto "utils" passando as coordenadas anteriores e a direção como argumentos, e atribui o resultado às variáveis "x" e "y"
+        this.addWall(x,y); // Adiciona uma parede na nova posição indicada pelas coordenadas "x" e "y"
+      }
+      
 }
 
 // Define os mapas disponíveis para o ambiente de jogo

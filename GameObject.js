@@ -12,11 +12,12 @@ class GameObject {
       });
     }
 
-    mount(map) {
+    mount(map) { // Declaração do método "mount" que recebe o parâmetro "map"
       console.log("mounting");
-      this.isMounted = true;
-      map.addWall(this.x, this.y);
+      this.isMounted = true; // Define a propriedade "isMounted" do objeto atual como "true", indicando que ele está montado
+      map.addWall(this.x, this.y); // Chama o método "addWall" do objeto "map", passando as coordenadas "x" e "y" do objeto atual como argumentos
     }
+    
 
     update() {
 

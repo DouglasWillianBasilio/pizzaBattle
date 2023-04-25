@@ -20,33 +20,33 @@ class Person extends GameObject {
         }
     }
 
-    // Método update que atualiza o estado do personagem
-    update(state) {
-        if(this.movingProgressRemaning > 0) {
-            // Atualiza a posição do personagem
-            this.updatePosition();
-        }else {
-            if(this.isPlayerControlled && state.arrow){
-                this.startBehavior(state,{
-                 type: "walk",
-                 direction: state.arrow
-                })
-             }
-             this.updateSprite(state);
+    
+    update(state) { // Declaração do método "update" que recebe o estado atual "state" como parâmetro
+        if (this.movingProgressRemaning > 0) { // Verifica se o personagem está em movimento, ou seja, se a quantidade de movimento restante é maior que 0
+          this.updatePosition(); // Atualiza a posição do personagem
+        } else { // Caso contrário, o personagem não está em movimento
+          if (this.isPlayerControlled && state.arrow) { // Verifica se o personagem é controlado pelo jogador e se há uma seta pressionada no estado atual
+            this.startBehavior(state, { // Inicia um comportamento de caminhada com a direção indicada pela seta pressionada
+              type: "walk",
+              direction: state.arrow
+            });
+          }
+          this.updateSprite(state); // Atualiza o sprite do personagem com o estado atual
         }
-    }
+      }
+      
 
-    startBehavior(state, behavior) {
-        this.direction = behavior.direction;
-        if (behavior.type === "walk") {
-            if (state.map.isSpaceTaken(this.x, this.y, this.direction)){
-                return;
-            }
-
-            state.map.moveWall(this.x, this.y, this.direction);
-            this.movingProgressRemaning = 16;
+    startBehavior(state, behavior) { // Declaração do método "startBehavior" que recebe o estado atual "state" e um comportamento "behavior" como parâmetros
+        this.direction = behavior.direction; // Atribui a direção indicada pelo comportamento à propriedade "direction" do objeto atual
+        if (behavior.type === "walk") { // Verifica se o comportamento é do tipo "walk"
+          if (state.map.isSpaceTaken(this.x, this.y, this.direction)){ // Verifica se há uma parede na posição para onde o objeto está tentando se mover, usando o método "isSpaceTaken" do objeto "map". Se houver, retorna
+            return;
+          }
+          state.map.moveWall(this.x, this.y, this.direction); // Remove a parede da posição anterior e adiciona uma nova parede na nova posição para onde o objeto está se movendo, usando o método "moveWall" do objeto "map"
+          this.movingProgressRemaning = 16; // Define a quantidade de movimento restante para 16
         }
-    }
+      }
+      
 
     // Método que atualiza a posição do personagem com base na direção atual e na tabela de atualização de direção
     updatePosition() {
