@@ -4,6 +4,7 @@ class OverworldMap {
     constructor(config) {
         // Define os objetos do jogo
         this.gameObjects = config.gameObjects;
+        this.walls = config.walls || {};
 
         // Carrega a imagem inferior do mapa
         this.lowerImage = new Image();
@@ -15,13 +16,44 @@ class OverworldMap {
     }
 
     // Desenha a imagem inferior do mapa no contexto de desenho especificado
-    drawLowerImage(ctx) {
-        ctx.drawImage(this.lowerImage, 0, 0);
+    drawLowerImage(ctx, cameraPerson) {
+        ctx.drawImage(
+            this.lowerImage,
+             utils.withGrid(10.5) - cameraPerson.x,
+             utils.withGrid(6)- cameraPerson.y);
     }
 
     // Desenha a imagem superior do mapa no contexto de desenho especificado
-    drawUpperImage(ctx) {
-        ctx.drawImage(this.upperImage, 0, 0);
+    drawUpperImage(ctx, cameraPerson) {
+        ctx.drawImage(
+            this.upperImage,
+             utils.withGrid(10.5) - cameraPerson.x,
+             utils.withGrid(6) - cameraPerson.y
+        )
+    }
+
+    isSpaceTaken(currentX, currentY, direction) {
+        const {x,y} = utils.nextPosition(currentX, currentY, direction);
+        return this.walls[`${x}, ${y}`] || false;
+    }
+
+    mountObjects() {
+        Object.values(this.gameObjects).forEach(o => {
+            o.mount(this);
+
+        })
+    }
+
+    addWall(x,y) {
+        this.walls[`${x}, ${y}`] = true;
+    }
+    removeWall(x,y) {
+        delete this.walls[`${x}, ${y}`]
+    }
+    moveWall(wasX, wasY, direction) {
+        this.removeWall(wasX, wasY);
+        const {x,y} = utils.nextPosition(wasX, wasY, direction);
+        this.addWall(x,y);
     }
 }
 
@@ -44,6 +76,12 @@ window.OverworldMaps = {
                 y: utils.withGrid (9),
                 src: "/images/characters/people/npc1.png"
             })
+        },
+        walls: {
+            [utils.asGridCoord(7,6)] : true,
+            [utils.asGridCoord(8,6)] : true,
+            [utils.asGridCoord(7,7)] : true,
+            [utils.asGridCoord(8,7)] : true,
         }
     },
     Kitchen: {

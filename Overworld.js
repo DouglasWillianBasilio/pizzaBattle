@@ -18,19 +18,30 @@ class Overworld {
       // Limpa o canvas
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
+      // Define uma variável 'cameraPerson' como o objeto 'hero' do objeto 'gameObjects' do objeto 'map'
+    const cameraPerson = this.map.gameObjects.hero;
+
+// Itera sobre todos os valores dos objetos no objeto 'gameObjects' do objeto 'map'
+    Object.values(this.map.gameObjects).forEach(object => {
+  // Chama o método 'update' em cada objeto, passando um objeto com uma propriedade 'arrow' que contém a direção atual do objeto 'directionInput'
+    object.update({
+      arrow: this.directionInput.direction,
+      map: this.map,
+    })
+  })
+
+
       // Desenha a imagem inferior do mapa
-      this.map.drawLowerImage(this.ctx);
+      this.map.drawLowerImage(this.ctx, cameraPerson);
 
       // Atualiza a posição dos objetos do jogo e desenha seus sprites
       Object.values(this.map.gameObjects).forEach(object => {
-        object.update({
-          arrow: this.directionInput.direction
-        })
-        object.sprite.draw(this.ctx);
-      });
+        
+        object.sprite.draw(this.ctx, cameraPerson);
+      })
 
       // Desenha a imagem superior do mapa
-      this.map.drawUpperImage(this.ctx);
+      this.map.drawUpperImage(this.ctx, cameraPerson);
 
       // Chama novamente a função "step" para o próximo frame
       requestAnimationFrame(() => {
@@ -45,6 +56,7 @@ class Overworld {
   init() {
     // Define um mapa para o ambiente de jogo
     this.map = new OverworldMap(window.OverworldMaps.DemoRoom);
+    this.map.mountObjects();
 
     this.directionInput = new DirectionInput();
     this.directionInput.init();

@@ -1,5 +1,6 @@
 class GameObject {
     constructor(config) {
+      this.isMounted = false;
       // Define as coordenadas iniciais do objeto (por padrão, x=0 e y=0)
       this.x = config.x || 0;
       this.y = config.y || 0;
@@ -10,6 +11,13 @@ class GameObject {
         src: config.src || "/images/characters/people/hero.png", // define o caminho da imagem a ser usada para o sprite (por padrão, a imagem do herói será usada)
       });
     }
+
+    mount(map) {
+      console.log("mounting");
+      this.isMounted = true;
+      map.addWall(this.x, this.y);
+    }
+
     update() {
 
     }

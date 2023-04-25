@@ -13,31 +13,44 @@ class Person extends GameObject {
 
         // Define uma tabela de atualização de direção, que associa cada direção (up, down, left, right) a uma propriedade do objeto (x ou y) e uma variação de valor (-1 ou 1)
         this.directionUpdate = {
-            "up": ["y", -1],
-            "down": ["y", 1],
-            "left": ["x", -1],
-            "right": ["x", 1],
+            "up":     ["y", -1],
+            "down":   ["y", 1],
+            "left":   ["x", -1],
+            "right":  ["x", 1],
         }
     }
 
     // Método update que atualiza o estado do personagem
     update(state) {
-        // Atualiza a posição do personagem
-        this.updatePosition();
+        if(this.movingProgressRemaning > 0) {
+            // Atualiza a posição do personagem
+            this.updatePosition();
+        }else {
+            if(this.isPlayerControlled && state.arrow){
+                this.startBehavior(state,{
+                 type: "walk",
+                 direction: state.arrow
+                })
+             }
+             this.updateSprite(state);
+        }
+    }
 
-        // Verifica se o personagem é controlado pelo jogador, se há uma seta pressionada e se o personagem não está em movimento
-        if(this.isPlayerControlled && this.movingProgressRemaning === 0 && state.arrow){
-            // Define a direção do personagem com base na seta pressionada
-            this.direction = state.arrow;
-            // Inicia o movimento com uma duração de 16 frames
-            this.movingProgressRemaning = 16
+    startBehavior(state, behavior) {
+        this.direction = behavior.direction;
+        if (behavior.type === "walk") {
+            if (state.map.isSpaceTaken(this.x, this.y, this.direction)){
+                return;
+            }
+
+            state.map.moveWall(this.x, this.y, this.direction);
+            this.movingProgressRemaning = 16;
         }
     }
 
     // Método que atualiza a posição do personagem com base na direção atual e na tabela de atualização de direção
     updatePosition() {
-        // Verifica se o personagem está em movimento
-        if(this.movingProgressRemaning > 0) {
+        
             // Obtém a propriedade do objeto (x ou y) e a variação de valor associada à direção atual
             const [property, change] = this.directionUpdate[this.direction]
             // Atualiza a propriedade correspondente com a variação de valor
@@ -45,5 +58,15 @@ class Person extends GameObject {
             // Decrementa o tempo de movimento restante
             this.movingProgressRemaning -= 1;
         }
+
+    // Método que atualiza a animação do sprite do personagem com base na direção atual e no estado do movimento
+    updateSprite() {
+        // Verifica se o personagem está em movimento
+        if(this.movingProgressRemaning > 0) {
+            // Define a animação "walk" correspondente à direção atual
+            this.sprite.setAnimation("walk-" + this.direction);
+            return;
+        }
+        this.sprite.setAnimation("idle-"+this.direction);
     }
 }

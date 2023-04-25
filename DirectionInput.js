@@ -33,7 +33,6 @@ class DirectionInput {
             if(dir && this.heldDirections.indexOf(dir) === -1) {
                 // Adiciona a direção pressionada na primeira posição da lista de direções pressionadas
                 this.heldDirections.unshift(dir);
-                console.log(this.heldDirections)
             }
         });
         // Adiciona um evento de teclado para quando uma tecla é solta
