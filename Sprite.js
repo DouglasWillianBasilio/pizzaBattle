@@ -1,105 +1,93 @@
 class Sprite {
   constructor(config) {
 
-    // Configuração da imagem
-    this.image = new Image(); // cria uma nova instância da classe Image() do JavaScript para carregar a imagem
-
-    this.image.src = config.src; // atribui o caminho da imagem passado como argumento para a propriedade src da imagem
-    
-    this.image.onload = () => { // adiciona um listener para o evento onload, que será disparado quando a imagem for carregada
-      this.isLoaded = true; // define a propriedade isLoaded como true para indicar que a imagem foi carregada com sucesso
+    //Set up the image
+    this.image = new Image();
+    this.image.src = config.src;
+    this.image.onload = () => {
+      this.isLoaded = true;
     }
 
-    // Configuração da sombra
-    this.shadow = new Image(); // cria uma nova instância da classe Image() para carregar a imagem da sombra
-    this.useShadow = true; // define a propriedade useShadow como true, indicando que a sombra será usada (por padrão, mas pode ser alterado no objeto de configuração)
-    if (this.useShadow) { // verifica se a sombra deve ser usada (se useShadow for true)
-      this.shadow.src = "/images/characters/shadow.png"; // atribui o caminho da imagem da sombra para a propriedade src da imagem
+    //Shadow
+    this.shadow = new Image();
+    this.useShadow = true; //config.useShadow || false
+    if (this.useShadow) {
+      this.shadow.src = "/images/characters/shadow.png";
     }
-    this.shadow.onload = () => { // adiciona um listener para o evento onload, que será disparado quando a imagem da sombra for carregada
-      this.isShadowLoaded = true; // define a propriedade isShadowLoaded como true para indicar que a imagem da sombra foi carregada com sucesso
+    this.shadow.onload = () => {
+      this.isShadowLoaded = true;
     }
 
-    // Configuração da animação e estado inicial
-    this.animations = config.animations || { // define as animações a serem usadas (por padrão, uma animação de idleDown será usada)
-      "idle-down":  [ [0,0] ],
+    //Configure Animation & Initial State
+    this.animations = config.animations || {
+      "idle-down" : [ [0,0] ],
       "idle-right": [ [0,1] ],
-      "idle-up":    [ [0,2] ],
-      "idle-left":  [ [0,3] ],
-      "walk-down":  [ [1,0], [0,0], [3,0], [0,0] ],
-      "walk-right": [ [1,1], [0,1], [3,1], [0,1] ],
-      "walk-up":    [ [1,2], [0,2], [3,2], [0,2] ],
-      "walk-left":  [ [1,3], [0,3], [3,3], [0,3] ]
+      "idle-up"   : [ [0,2] ],
+      "idle-left" : [ [0,3] ],
+      "walk-down" : [ [1,0],[0,0],[3,0],[0,0], ],
+      "walk-right": [ [1,1],[0,1],[3,1],[0,1], ],
+      "walk-up"   : [ [1,2],[0,2],[3,2],[0,2], ],
+      "walk-left" : [ [1,3],[0,3],[3,3],[0,3], ]
     }
-    this.currentAnimation = "walk-down"; //config.currentAnimation || "idleDown"; // define a animação atual a ser usada (por padrão, a animação de idleDown será usada)
-    this.currentAnimationFrame = 0; // define o frame atual da animação como zero
+    this.currentAnimation = "idle-right"; // config.currentAnimation || "idle-down";
+    this.currentAnimationFrame = 0;
 
     this.animationFrameLimit = config.animationFrameLimit || 8;
     this.animationFrameProgress = this.animationFrameLimit;
+    
 
-    // Referência para o objeto de jogo
-    this.gameObject = config.gameObject; // armazena uma referência para o objeto de jogo para poder acessar as coordenadas do objeto e desenhar o sprite na posição correta
+    //Reference the game object
+    this.gameObject = config.gameObject;
   }
 
-  // O método get retorna o frame atual da animação
-get frame() {
-  return this.animations[this.currentAnimation][this.currentAnimationFrame];
-}
+  get frame() {
+    return this.animations[this.currentAnimation][this.currentAnimationFrame]
+  }
 
-// O método setAnimation define a animação atual e reseta a contagem de frames
-setAnimation(key) {
-  // Se a animação atual já for a mesma que a animação desejada, não faz nada
-  if (this.currentAnimation !== key) {
-    // Define a nova animação
-    this.currentAnimation = key;
-    // Reseta a contagem de frames
-    this.currentAnimationFrame = 0;
-    // Define o progresso do frame para o limite da animação
+  setAnimation(key) {
+    if (this.currentAnimation !== key) {
+      this.currentAnimation = key;
+      this.currentAnimationFrame = 0;
+      this.animationFrameProgress = this.animationFrameLimit;
+    }
+  }
+
+  updateAnimationProgress() {
+    //Downtick frame progress
+    if (this.animationFrameProgress > 0) {
+      this.animationFrameProgress -= 1;
+      return;
+    }
+
+    //Reset the counter
     this.animationFrameProgress = this.animationFrameLimit;
+    this.currentAnimationFrame += 1;
+
+    if (this.frame === undefined) {
+      this.currentAnimationFrame = 0
+    }
+
+
   }
-}
+  
 
-// O método updateAnimationsProgress avança a animação para o próximo frame, 
-// levando em consideração o limite de tempo de cada frame
-updateAnimationsProgress() {
-  // Se ainda não passou o tempo do frame atual, apenas diminui o progresso do frame
-  if (this.animationFrameProgress > 0) {
-    this.animationFrameProgress -= 1;
-    return;
-  }
-
-  // Se já passou o tempo do frame atual, avança para o próximo frame
-  this.animationFrameProgress = this.animationFrameLimit;
-  this.currentAnimationFrame += 1;
-
-  // Se não houver mais frames na animação atual, volta para o primeiro frame
-  if (this.frame === undefined) {
-    this.currentAnimationFrame = 0;
-  }
-}
-
-
-  // Método para desenhar o sprite na tela
   draw(ctx, cameraPerson) {
-    const x = this.gameObject.x  - 8 + utils.withGrid(10.5) - cameraPerson.x; // calcula a posição x do sprite na tela usando as coordenadas do objeto de jogo
-    const y = this.gameObject.y  - 18 + utils.withGrid(6) - cameraPerson.y; // calcula a posição y do sprite na tela usando as coordenadas do objeto de jogo
+    const x = this.gameObject.x - 8 + utils.withGrid(10.5) - cameraPerson.x;
+    const y = this.gameObject.y - 18 + utils.withGrid(6) - cameraPerson.y;
 
-    // Desenha a sombra se estiver carregada
     this.isShadowLoaded && ctx.drawImage(this.shadow, x, y);
 
 
     const [frameX, frameY] = this.frame;
 
-    // Desenha o sprite se a imagem estiver carregada
     this.isLoaded && ctx.drawImage(this.image,
-      frameX * 32 , frameY * 32,
+      frameX * 32, frameY * 32,
       32,32,
       x,y,
       32,32
     )
 
-    this.updateAnimationsProgress();
+    this.updateAnimationProgress();
   }
 
-  
 }

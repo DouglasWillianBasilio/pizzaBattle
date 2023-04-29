@@ -1,26 +1,61 @@
 class GameObject {
-    constructor(config) {
-      this.isMounted = false;
-      // Define as coordenadas iniciais do objeto (por padrão, x=0 e y=0)
-      this.x = config.x || 0;
-      this.y = config.y || 0;
-      this.direction = config.direction || "down";
-      // Cria um novo sprite para o objeto usando as configurações passadas no objeto de configuração
-      this.sprite = new Sprite({
-        gameObject: this, // passa uma referência para o objeto atual para que o sprite possa acessar suas coordenadas e desenhá-lo corretamente na tela
-        src: config.src || "/images/characters/people/hero.png", // define o caminho da imagem a ser usada para o sprite (por padrão, a imagem do herói será usada)
-      });
+  constructor(config) {
+    this.id = null;
+    this.isMounted = false;
+    this.x = config.x || 0;
+    this.y = config.y || 0;
+    this.direction = config.direction || "down";
+    this.sprite = new Sprite({
+      gameObject: this,
+      src: config.src || "/images/characters/people/hero.png",
+    });
+
+    this.behaviorLoop = config.behaviorLoop || [];
+    this.behaviorLoopIndex = 0;
+
+  }
+
+  mount(map) {
+    console.log("mounting!")
+    this.isMounted = true;
+    map.addWall(this.x, this.y);
+
+    //If we have a behavior, kick off after a short delay
+    setTimeout(() => {
+      this.doBehaviorEvent(map);
+    }, 10)
+  }
+
+  update() {
+  }
+
+  async doBehaviorEvent(map) { 
+
+    //Don't do anything if there is a more important cutscene or I don't have config to do anything
+    //anyway.
+    if (map.isCutscenePlaying || this.behaviorLoop.length === 0) {
+      return;
     }
 
-    mount(map) { // Declaração do método "mount" que recebe o parâmetro "map"
-      console.log("mounting");
-      this.isMounted = true; // Define a propriedade "isMounted" do objeto atual como "true", indicando que ele está montado
-      map.addWall(this.x, this.y); // Chama o método "addWall" do objeto "map", passando as coordenadas "x" e "y" do objeto atual como argumentos
-    }
+    //Setting up our event with relevant info
+    let eventConfig = this.behaviorLoop[this.behaviorLoopIndex];
+    eventConfig.who = this.id;
+
+    //Create an event instance out of our next event config
+    const eventHandler = new OverworldEvent({ map, event: eventConfig });
+    await eventHandler.init(); 
+
+    //Setting the next event to fire
+    this.behaviorLoopIndex += 1;
+    if (this.behaviorLoopIndex === this.behaviorLoop.length) {
+      this.behaviorLoopIndex = 0;
+    } 
+
+    //Do it again!
+    this.doBehaviorEvent(map);
     
 
-    update() {
-
-    }
   }
-  
+
+
+}
