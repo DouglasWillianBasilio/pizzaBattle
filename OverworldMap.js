@@ -120,9 +120,10 @@ window.OverworldMaps = {
         talking: [
           {
             events: [
-              { type: "textMessage", text: "ESTOU OCUPADA...", faceHero: "npcA" },
-              { type: "textMessage", text: "VÁ EMBORA!"},
-              { who: "hero", type: "walk",  direction: "up" },
+              { type: "textMessage", text: "I'm busy...", faceHero: "npcA" },
+              { type: "battle", enemyId: "beth" }
+              // { type: "textMessage", text: "Go away!"},
+              //{ who: "hero", type: "walk",  direction: "up" },
             ]
           }
         ]
@@ -130,7 +131,15 @@ window.OverworldMaps = {
       npcB: new Person({
         x: utils.withGrid(8),
         y: utils.withGrid(5),
-        src: "/images/characters/people/npc2.png",
+        src: "/images/characters/people/erio.png",
+        talking: [
+          {
+            events: [
+              { type: "textMessage", text: "Bahaha!", faceHero: "npcB" },
+              { type: "battle", enemyId: "erio" }
+            ]
+          }
+        ]
         // behaviorLoop: [
         //   { type: "walk",  direction: "left" },
         //   { type: "stand",  direction: "up", time: 800 },
@@ -152,7 +161,7 @@ window.OverworldMaps = {
           events: [
             { who: "npcB", type: "walk",  direction: "left" },
             { who: "npcB", type: "stand",  direction: "up", time: 500 },
-            { type: "textMessage", text:"Você não pode entrar ai!"},
+            { type: "textMessage", text:"You can't be in there!"},
             { who: "npcB", type: "walk",  direction: "right" },
             { who: "hero", type: "walk",  direction: "down" },
             { who: "hero", type: "walk",  direction: "left" },
@@ -185,7 +194,7 @@ window.OverworldMaps = {
         talking: [
           {
             events: [
-              { type: "textMessage", text: "You made it!", faceHero:"npcB" },
+              { type: "textMessage", text: "You made it! This video is going to be such a good time!", faceHero:"npcB" },
             ]
           }
         ]
