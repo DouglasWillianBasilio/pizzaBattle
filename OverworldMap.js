@@ -120,10 +120,9 @@ window.OverworldMaps = {
         talking: [
           {
             events: [
-              { type: "textMessage", text: "I'm busy...", faceHero: "npcA" },
+              { type: "textMessage", text: "Hello, let's fight?", faceHero: "npcA" },
               { type: "battle", enemyId: "beth" }
-              // { type: "textMessage", text: "Go away!"},
-              //{ who: "hero", type: "walk",  direction: "up" },
+              
             ]
           }
         ]
@@ -140,13 +139,6 @@ window.OverworldMaps = {
             ]
           }
         ]
-        // behaviorLoop: [
-        //   { type: "walk",  direction: "left" },
-        //   { type: "stand",  direction: "up", time: 800 },
-        //   { type: "walk",  direction: "up" },
-        //   { type: "walk",  direction: "right" },
-        //   { type: "walk",  direction: "down" },
-        // ]
       }),
     },
     walls: {
@@ -161,7 +153,7 @@ window.OverworldMaps = {
           events: [
             { who: "npcB", type: "walk",  direction: "left" },
             { who: "npcB", type: "stand",  direction: "up", time: 500 },
-            { type: "textMessage", text:"You can't be in there!"},
+            { type: "textMessage", text:"You can't go there!"},
             { who: "npcB", type: "walk",  direction: "right" },
             { who: "hero", type: "walk",  direction: "down" },
             { who: "hero", type: "walk",  direction: "left" },
@@ -194,7 +186,7 @@ window.OverworldMaps = {
         talking: [
           {
             events: [
-              { type: "textMessage", text: "You made it! This video is going to be such a good time!", faceHero:"npcB" },
+              { type: "textMessage", text: "I still have nothing for this NPC to talk about!", faceHero:"npcB" },
             ]
           }
         ]
