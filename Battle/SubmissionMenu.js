@@ -39,7 +39,7 @@ class SubmissionMenu {
           label: "Attack",
           description: "Choose an attack",
           handler: () => {
-            //Do something when chosen...
+            //Fazer algo quando escolhido...
             this.keyboardMenu.setOptions( this.getPages().attacks )
           }
         },
@@ -47,7 +47,7 @@ class SubmissionMenu {
           label: "Items",
           description: "Choose an item",
           handler: () => {
-            //Go to items page...
+            //Ir para a página de itens...
             this.keyboardMenu.setOptions( this.getPages().items )
           }
         },
@@ -55,7 +55,7 @@ class SubmissionMenu {
           label: "Swap",
           description: "Change to another pizza",
           handler: () => { 
-            //See pizza options
+            //Ver as opções de pizza.
             this.keyboardMenu.setOptions( this.getPages().replacements )
           }
         },
@@ -95,7 +95,7 @@ class SubmissionMenu {
             label: replacement.name,
             description: replacement.description,
             handler: () => {
-              //Swap me in, coach!
+              
               this.menuSubmitReplacement(replacement)
             }
           }
@@ -124,7 +124,7 @@ class SubmissionMenu {
   }
 
   decide() {
-    //TODO: Enemies should randomly decide what to do...
+    //A fazer: Os inimigos devem decidir aleatoriamente o que fazer...
     this.menuSubmit(Actions[ this.caster.actions[0] ]);
   }
 
@@ -137,7 +137,7 @@ class SubmissionMenu {
   init(container) {
 
     if (this.caster.isPlayerControlled) {
-      //Show some UI
+      //Mostrar alguma interface do usuário (UI).
       this.showMenu(container)
     } else {
       this.decide()

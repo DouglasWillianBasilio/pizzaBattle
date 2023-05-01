@@ -34,7 +34,7 @@ class OverworldEvent {
       retry: true
     })
 
-    //Set up a handler to complete when correct person is done walking, then resolve the event
+    //Configure um manipulador para ser executado quando a pessoa correta terminar de caminhar, em seguida, resolva o evento.
     const completeHandler = e => {
       if (e.detail.whoId === this.event.who) {
         document.removeEventListener("PersonWalkingComplete", completeHandler);

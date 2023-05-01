@@ -58,23 +58,23 @@ class Combatant {
   }
 
   update(changes={}) {
-    //Update anything incoming
+    //Atualizar qualquer coisa que estiver chegando.
     Object.keys(changes).forEach(key => {
       this[key] = changes[key]
     });
 
-    //Update active flag to show the correct pizza & hud
+    //Atualizar a flag de ativo para mostrar a pizza e o HUD corretos.
     this.hudElement.setAttribute("data-active", this.isActive);
     this.pizzaElement.setAttribute("data-active", this.isActive);
 
-    //Update HP & XP percent fills
+    //Atualizar o preenchimento percentual de HP (pontos de vida) e XP (pontos de experiência).
     this.hpFills.forEach(rect => rect.style.width = `${this.hpPercent}%`)
     this.xpFills.forEach(rect => rect.style.width = `${this.xpPercent}%`)
 
-    //Update level on screen
+    //Atualizar o nível na tela.
     this.hudElement.querySelector(".Combatant_level").innerText = this.level;
 
-    //Update status
+    //Atualizar status
     const statusElement = this.hudElement.querySelector(".Combatant_status");
     if (this.status) {
       statusElement.innerText = this.status.type;

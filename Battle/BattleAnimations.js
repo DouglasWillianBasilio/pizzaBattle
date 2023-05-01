@@ -4,12 +4,12 @@ window.BattleAnimations = {
     const animationClassName = event.caster.team === "player" ? "battle-spin-right" : "battle-spin-left";
     element.classList.add(animationClassName);
 
-    //Remove class when animation is fully complete
+    //Remover a classe quando a animação estiver completamente concluída.
     element.addEventListener("animationend", () => {
       element.classList.remove(animationClassName);
     }, { once:true });
 
-    //Continue battle cycle right around when the pizzas collide
+    //Continuar o ciclo de batalha logo após as pizzas colidirem.
     await utils.wait(100);
     onComplete();
   },
@@ -26,7 +26,7 @@ window.BattleAnimations = {
       </svg>
     `);
 
-    //Remove class when animation is fully complete
+    //Remover a classe quando a animação estiver completamente concluída.
     div.addEventListener("animationend", () => {
       div.remove();
     });

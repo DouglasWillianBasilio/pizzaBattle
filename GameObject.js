@@ -22,7 +22,7 @@ class GameObject {
     this.isMounted = true;
     map.addWall(this.x, this.y);
 
-    //If we have a behavior, kick off after a short delay
+    //Se tivermos um comportamento, iniciar após um curto atraso.
     setTimeout(() => {
       this.doBehaviorEvent(map);
     }, 10)
@@ -33,27 +33,27 @@ class GameObject {
 
   async doBehaviorEvent(map) { 
 
-    //Don't do anything if there is a more important cutscene or I don't have config to do anything
-    //anyway.
+    //Não fazer nada se houver uma cena mais importante ou se não houver configuração para fazer algo.
+    //De qualquer forma.
     if (map.isCutscenePlaying || this.behaviorLoop.length === 0 || this.isStanding) {
       return;
     }
 
-    //Setting up our event with relevant info
+    //Configurando nosso evento com informações relevantes.
     let eventConfig = this.behaviorLoop[this.behaviorLoopIndex];
     eventConfig.who = this.id;
 
-    //Create an event instance out of our next event config
+    //Criar uma instância de evento a partir da nossa próxima configuração de evento.
     const eventHandler = new OverworldEvent({ map, event: eventConfig });
     await eventHandler.init(); 
 
-    //Setting the next event to fire
+    //Configurando o próximo evento para ser disparado.
     this.behaviorLoopIndex += 1;
     if (this.behaviorLoopIndex === this.behaviorLoop.length) {
       this.behaviorLoopIndex = 0;
     } 
 
-    //Do it again!
+    //Repetir
     this.doBehaviorEvent(map);
     
 

@@ -52,11 +52,11 @@ class Battle {
       enemy: null, //"enemy1",
     }
 
-    //Dynamically add the Player team
+    // Adicionar dinamicamente a equipe do jogador.
     window.playerState.lineup.forEach(id => {
       this.addCombatant(id, "player", window.playerState.pizzas[id])
     });
-    //Now the enemy team
+    // Agora a equipe inimiga.
     Object.keys(this.enemy.pizzas).forEach(key => {
       this.addCombatant("e_"+key, "enemy", this.enemy.pizzas[key])
     })
@@ -65,7 +65,7 @@ class Battle {
     //Start empty
     this.items = []
 
-    //Add in player items
+    //Adicionar itens do jogador.
     window.playerState.items.forEach(item => {
       this.items.push({
         ...item,
@@ -85,7 +85,7 @@ class Battle {
         isPlayerControlled: team === "player"
       }, this)
 
-      //Populate first active pizza
+      //Preencher a primeira pizza ativa.
 
       console.log(this)
       this.activeCombatants[team] = this.activeCombatants[team] || id
@@ -116,7 +116,7 @@ class Battle {
       combatant.id = key;
       combatant.init(this.element)
       
-      //Add to correct team
+      //Adicionar à equipe correta.
       if (combatant.team === "player") {
         this.playerTeam.combatants.push(combatant);
       } else if (combatant.team === "enemy") {
@@ -150,7 +150,7 @@ class Battle {
             }
           })
 
-          //Get rid of player used items
+          //Eliminar os itens usados pelo jogador.
           playerState.items = playerState.items.filter(item => {
             return !this.usedInstanceIds[item.instanceId]
           })

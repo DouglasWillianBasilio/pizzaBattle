@@ -19,11 +19,11 @@ class Person extends GameObject {
       this.updatePosition();
     } else {
 
-      //More cases for starting to walk will come here
+      //Mais casos para começar a caminhar serão adicionados aqui.
       //
       //
 
-      //Case: We're keyboard ready and have an arrow pressed
+      //Estamos prontos no teclado e temos uma seta pressionada.
       if (!state.map.isCutscenePlaying && this.isPlayerControlled && state.arrow) {
         this.startBehavior(state, {
           type: "walk",
@@ -35,11 +35,11 @@ class Person extends GameObject {
   }
 
   startBehavior(state, behavior) {
-    //Set character direction to whatever behavior has
+    //Defina a direção do personagem para o comportamento que ele tem.
     this.direction = behavior.direction;
     
     if (behavior.type === "walk") {
-      //Stop here if space is not free
+      //Pare aqui se o espaço não estiver livre.
       if (state.map.isSpaceTaken(this.x, this.y, this.direction)) {
 
         behavior.retry && setTimeout(() => {

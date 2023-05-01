@@ -41,7 +41,7 @@ class OverworldMap {
       let object = this.gameObjects[key];
       object.id = key;
 
-      //TODO: determine if this object should actually mount
+      //Determine se este objeto deve realmente ser montado.
       object.mount(this);
 
     })
@@ -60,7 +60,7 @@ class OverworldMap {
 
     this.isCutscenePlaying = false;
 
-    //Reset NPCs to do their idle behavior
+    //Redefina os NPCs para que executem seu comportamento de ociosidade.
     Object.values(this.gameObjects).forEach(object => object.doBehaviorEvent(this))
   }
 

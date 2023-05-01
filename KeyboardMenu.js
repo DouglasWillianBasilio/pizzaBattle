@@ -48,7 +48,7 @@ class KeyboardMenu {
     this.element = document.createElement("div");
     this.element.classList.add("KeyboardMenu");
 
-    //Description box element
+    //Elemento da caixa de descrição.
     this.descriptionElement = document.createElement("div");
     this.descriptionElement.classList.add("DescriptionBox");
     this.descriptionElement.innerHTML = (`<p>I will provide information!</p>`);
@@ -57,11 +57,11 @@ class KeyboardMenu {
 
   end() {
 
-    //Remove menu element and description element
+    //Remover o elemento do menu e o elemento da descrição.
     this.element.remove();
     this.descriptionElement.remove();
 
-    //Clean up bindings
+    //Limpar as associações.
     this.up.unbind();
     this.down.unbind();
   }

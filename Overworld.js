@@ -8,13 +8,13 @@ class Overworld {
 
   startGameLoop() {
     const step = () => {
-      //Clear off the canvas
+      //Limpar o canvas.
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-      //Establish the camera person
+      //Definir a câmera.
       const cameraPerson = this.map.gameObjects.hero;
 
-      //Update all objects
+      //Atualizar todos os objetos.
       Object.values(this.map.gameObjects).forEach(object => {
         object.update({
           arrow: this.directionInput.direction,
@@ -22,17 +22,17 @@ class Overworld {
         })
       })
 
-      //Draw Lower layer
+      //Desenhar a camada inferior.
       this.map.drawLowerImage(this.ctx, cameraPerson);
 
-      //Draw Game Objects
+      //Desenhar os objetos do jogo.
       Object.values(this.map.gameObjects).sort((a,b) => {
         return a.y - b.y;
       }).forEach(object => {
         object.sprite.draw(this.ctx, cameraPerson);
       })
 
-      //Draw Upper layer
+      //Desenhar a camada superior.
       this.map.drawUpperImage(this.ctx, cameraPerson);
       
       requestAnimationFrame(() => {
@@ -44,7 +44,7 @@ class Overworld {
 
  bindActionInput() {
    new KeyPressListener("Enter", () => {
-     //Is there a person here to talk to?
+     //Há alguém aqui para conversar?
      this.map.checkForActionCutscene()
    })
  }
@@ -52,7 +52,7 @@ class Overworld {
  bindHeroPositionCheck() {
    document.addEventListener("PersonWalkingComplete", e => {
      if (e.detail.whoId === "hero") {
-       //Hero's position has changed
+       //A posição do herói mudou.
        this.map.checkForFootstepCutscene()
      }
    })
