@@ -1,7 +1,7 @@
 window.Actions = {
   damage1: {
     name: "Whomp!",
-    description: "Pillowy punch of dough",
+    description: "Atack de Pizza",
     success: [
       { type: "textMessage", text: "{CASTER} uses {ACTION}!"},
       { type: "animation", animation: "spin"},
@@ -10,7 +10,7 @@ window.Actions = {
   },
   saucyStatus: {
     name: "Tomato Squeeze",
-    description: "Applies the Saucy status",
+    description: "Aplicar molho",
     targetType: "friendly",
     success: [
       { type: "textMessage", text: "{CASTER} uses {ACTION}!"},
@@ -19,7 +19,7 @@ window.Actions = {
   },
   clumsyStatus: {
     name: "Olive Oil",
-    description: "Slippery mess of deliciousness",
+    description: "Atack delicioso",
     success: [
       { type: "textMessage", text: "{CASTER} uses {ACTION}!"},
       { type: "animation", animation: "glob", color: "#dafd2a" },
@@ -30,7 +30,7 @@ window.Actions = {
   //Items
   item_recoverStatus: {
     name: "Heating Lamp",
-    description: "Feeling fresh and warm",
+    description: "Fresco e quente",
     targetType: "friendly",
     success: [
       { type: "textMessage", text: "{CASTER} uses a {ACTION}!"},

@@ -89,7 +89,7 @@ class Combatant {
 
     if (this.status?.type === "clumsy" && utils.randomFromArray([true, false, false])) {
       return [
-        { type: "textMessage", text: `${this.name} flops over!` },
+        { type: "textMessage", text: `${this.name} Eu cai!` },
       ]
     }
 
@@ -99,7 +99,7 @@ class Combatant {
   getPostEvents() {
     if (this.status?.type === "saucy") {
       return [
-        { type: "textMessage", text: "Feelin' saucy!" },
+        { type: "textMessage", text: "Toma essa!" },
         { type: "stateChange", recover: 5, onCaster: true }
       ]
     } 

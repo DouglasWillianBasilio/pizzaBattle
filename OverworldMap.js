@@ -120,7 +120,7 @@ window.OverworldMaps = {
         talking: [
           {
             events: [
-              { type: "textMessage", text: "Hello, let's fight?", faceHero: "npcA" },
+              { type: "textMessage", text: "Olá quer batalhar??", faceHero: "npcA" },
               { type: "battle", enemyId: "beth" }
               
             ]
@@ -153,7 +153,7 @@ window.OverworldMaps = {
           events: [
             { who: "npcB", type: "walk",  direction: "left" },
             { who: "npcB", type: "stand",  direction: "up", time: 500 },
-            { type: "textMessage", text:"You can't go there!"},
+            { type: "textMessage", text:"Você não pode ir là!"},
             { who: "npcB", type: "walk",  direction: "right" },
             { who: "hero", type: "walk",  direction: "down" },
             { who: "hero", type: "walk",  direction: "left" },
@@ -186,7 +186,7 @@ window.OverworldMaps = {
         talking: [
           {
             events: [
-              { type: "textMessage", text: "I still have nothing for this NPC to talk about!", faceHero:"npcB" },
+              { type: "textMessage", text: "NPC não tem fala ainda!", faceHero:"npcB" },
             ]
           }
         ]
