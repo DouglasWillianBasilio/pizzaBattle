@@ -138,16 +138,16 @@ window.OverworldMaps = {
           {
             required: ["TALKED_TO_ERIO"],
             events: [
-              { type: "textMessage", text: "Isn't Erio the coolest?", faceHero: "npcA" },
+              { type: "textMessage", text: "O Erio não é o máximo?", faceHero: "npcA" },
             ]
           },
           {
             events: [
-              { type: "textMessage", text: "I'm going to crush you!", faceHero: "npcA" },
+              { type: "textMessage", text: "Vou te esmagar!", faceHero: "npcA" },
               { type: "battle", enemyId: "beth" },
               { type: "addStoryFlag", flag: "DEFEATED_BETH"},
-              { type: "textMessage", text: "You crushed me like weak pepper.", faceHero: "npcA" },
-              { type: "textMessage", text: "Go away!"},
+              { type: "textMessage", text: "Você me esmagou como pimenta fraca!", faceHero: "npcA" },
+              { type: "textMessage", text: "Some daqui!"},
                //{ who: "npcB", type: "walk",  direction: "up" },
             ]
           }
@@ -302,19 +302,19 @@ window.OverworldMaps = {
         disqualify: ["SEEN_INTRO"],
         events: [
           { type: "addStoryFlag", flag: "SEEN_INTRO"},
-          { type: "textMessage", text: "* You are chopping ingredients on your first day as a Pizza Chef at a famed establishment in town. *"},
+          { type: "textMessage", text: "* Você está picando ingredientes no seu primeiro dia como Chef de Pizza num restaurante famoso. *"},
           { type: "walk", who: "kitchenNpcA", direction: "down"},
           { type: "stand", who: "kitchenNpcA", direction: "right", time: 200},
           { type: "stand", who: "hero", direction: "left", time: 200},
-          { type: "textMessage", text: "Ahem. Is this your best work?"},
-          { type: "textMessage", text: "These pepperonis are completely unstable! The pepper shapes are all wrong!"},
-          { type: "textMessage", text: "Don't even get me started on the mushrooms."},
-          { type: "textMessage", text: "You will never make it in pizza!"},
+          { type: "textMessage", text: "Aham. Isso é o seu melhor?"},
+          { type: "textMessage", text: "Esses pepperonis estão completamente irregulares! O formato está todo errado!"},
+          { type: "textMessage", text: "Nem me fale dos cogumelos..."},
+          { type: "textMessage", text: "Você nunca vai vencer no mundo da pizza!"},
           { type: "stand", who: "kitchenNpcA", direction: "right", time: 200},
           { type: "walk", who: "kitchenNpcA", direction: "up"},
           { type: "stand", who: "kitchenNpcA", direction: "up", time: 300},
           { type: "stand", who: "hero", direction: "down", time: 400},
-          { type: "textMessage", text: "* The competition is fierce! You should spend some time leveling up your Pizza lineup and skills. *"},
+          { type: "textMessage", text: "* A competição é feroz! Melhor treinar suas habilidades e seu time de pizzas. *"},
           {
             type: "changeMap",
             map: "Street",
@@ -391,7 +391,7 @@ window.OverworldMaps = {
         talking: [
           {
             events: [
-              { type: "textMessage", text: "All ambitious pizza chefs gather on Anchovy Avenue.", faceHero: "streetNpcA" },
+              { type: "textMessage", text: "Todos os chefs ambiciosos se reúnem na Avenida Anchova.", faceHero: "streetNpcA" },
             ]
           }
         ]
@@ -411,7 +411,7 @@ window.OverworldMaps = {
         talking: [
           {
             events: [
-              { type: "textMessage", text: "I can't decide on my favorite toppings.", faceHero: "streetNpcB" },
+              { type: "textMessage", text: "Não consigo decidir meus ingredientes favoritos.", faceHero: "streetNpcB" },
             ]
           }
         ]
@@ -425,12 +425,12 @@ window.OverworldMaps = {
           {
             required: ["streetBattle"],
             events: [
-              { type: "textMessage", text: "You are quite capable.", faceHero: "streetNpcC" },
+              { type: "textMessage", text: "Você é bastante habilidoso.", faceHero: "streetNpcC" },
             ]
           },
           {
             events: [
-              { type: "textMessage", text: "You should have just stayed home!", faceHero: "streetNpcC" },
+              { type: "textMessage", text: "Você devia ter ficado em casa!", faceHero: "streetNpcC" },
               { type: "battle", enemyId: "streetBattle" },
               { type: "addStoryFlag", flag: "streetBattle"},
             ]
@@ -515,7 +515,7 @@ window.OverworldMaps = {
         talking: [
           {
             events: [
-              { type: "textMessage", text: "All of the chef rivalries have been good for business.", faceHero: "shopNpcA" },
+              { type: "textMessage", text: "A rivalidade entre chefs foi ótima pros negócios.", faceHero: "shopNpcA" },
             ]
           }
         ]
@@ -531,7 +531,7 @@ window.OverworldMaps = {
         talking: [
           {
             events: [
-              { type: "textMessage", text: "Which peel will make me a better chef?", faceHero: "shopNpcB" },
+              { type: "textMessage", text: "Qual pá de pizza vai me tornar um chef melhor?", faceHero: "shopNpcB" },
             ]
           }
         ]
@@ -646,7 +646,7 @@ window.OverworldMaps = {
         talking: [
           {
             events: [
-              { type: "textMessage", text: "Chef Rootie uses the best seasoning.", faceHero: "greenKitchenNpcA" },
+              { type: "textMessage", text: "O Chef Prosperin usa os melhores temperos.", faceHero: "greenKitchenNpcA" },
             ]
           }
         ]
@@ -671,7 +671,7 @@ window.OverworldMaps = {
         talking: [
           {
             events: [
-              { type: "textMessage", text: "Finally... a pizza place that gets me!", faceHero: "greenKitchenNpcB" },
+              { type: "textMessage", text: "Finalmente... uma pizzaria que me entende!", faceHero: "greenKitchenNpcB" },
             ]
           }
         ]
@@ -684,11 +684,11 @@ window.OverworldMaps = {
         talking: [
           {
             required: ["chefRootie"],
-            events: [ {type: "textMessage", faceHero:["greenKitchenNpcC"], text: "My veggies need more growth."} ]
+            events: [ {type: "textMessage", faceHero:["greenKitchenNpcC"], text: "Meus vegetais precisam crescer mais."} ]
           },
           {
             events: [
-              { type: "textMessage", text: "Veggies are the fuel for the heart and soul!", faceHero: "greenKitchenNpcC" },
+              { type: "textMessage", text: "Vegetais são o combustível para o coração e a alma!", faceHero: "greenKitchenNpcC" },
               { type: "battle", enemyId: "chefRootie", arena: "green-kitchen" },
               { type: "addStoryFlag", flag: "chefRootie"},
             ]
@@ -786,7 +786,7 @@ window.OverworldMaps = {
         talking: [
           {
             events: [
-              { type: "textMessage", text: "This place is famous for veggie pizzas!", faceHero: "streetNorthNpcA" },
+              { type: "textMessage", text: "Este lugar é famoso pelas pizzas veganas!", faceHero: "streetNorthNpcA" },
             ]
           }
         ]
@@ -806,7 +806,7 @@ window.OverworldMaps = {
         talking: [
           {
             events: [
-              { type: "textMessage", text: "I love the fresh smell of garlic in the air.", faceHero: "streetNorthNpcB" },
+              { type: "textMessage", text: "Adoro o cheiro de alho fresco no ar.", faceHero: "streetNorthNpcB" },
             ]
           }
         ]
@@ -820,12 +820,12 @@ window.OverworldMaps = {
           {
             required: ["streetNorthBattle"],
             events: [
-              { type: "textMessage", text: "Could you be the Legendary one?", faceHero: "streetNorthNpcC" },
+              { type: "textMessage", text: "Será que você é o Lendário?", faceHero: "streetNorthNpcC" },
             ]
           },
           {
             events: [
-              { type: "textMessage", text: "This is my turf!", faceHero: "streetNorthNpcC" },
+              { type: "textMessage", text: "Este é o meu território!", faceHero: "streetNorthNpcC" },
               { type: "battle", enemyId: "streetNorthBattle" },
               { type: "addStoryFlag", flag: "streetNorthBattle"},
             ]
@@ -944,12 +944,12 @@ window.OverworldMaps = {
           {
             required: ["diningRoomBattle"],
             events: [
-              { type: "textMessage", text: "Maybe I am not ready for this place.", faceHero: "diningRoomNpcA" },
+              { type: "textMessage", text: "É... claramente eu não dou conta desse troço!", faceHero: "diningRoomNpcA" },
             ]
           },
           {
             events: [
-              { type: "textMessage", text: "You think you have what it takes to cook here?!", faceHero: "diningRoomNpcA" },
+              { type: "textMessage", text: "Você realmente acredita que sobreviveria nesse inferno da cozinha?!", faceHero: "diningRoomNpcA" },
               { type: "battle", enemyId: "diningRoomBattle", arena: "dining-room" },
               { type: "addStoryFlag", flag: "diningRoomBattle"},
             ]
@@ -964,7 +964,7 @@ window.OverworldMaps = {
         talking: [
           {
             events: [
-              { type: "textMessage", text: "People come from all over to dine here.", faceHero: "diningRoomNpcB" },
+              { type: "textMessage", text: "Pessoas de todos os cantos vêm experimentar nossa comida!.", faceHero: "diningRoomNpcB" },
             ]
           },
         ]
@@ -982,7 +982,7 @@ window.OverworldMaps = {
         talking: [
           {
             events: [
-              { type: "textMessage", text: "I was so lucky to score a reservation!", faceHero: "diningRoomNpcC" },
+              { type: "textMessage", text: "Tive sorte de conseguir uma reserva!", faceHero: "diningRoomNpcC" },
             ]
           },
         ]
@@ -1003,7 +1003,7 @@ window.OverworldMaps = {
         talking: [
           {
             events: [
-              { type: "textMessage", text: "I've been dreaming of this pizza for weeks!", faceHero: "diningRoomNpcD" },
+              { type: "textMessage", text: "Sonho com essa pizza há semanas!", faceHero: "diningRoomNpcD" },
             ]
           },
         ]
