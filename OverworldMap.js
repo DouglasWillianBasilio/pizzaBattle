@@ -636,7 +636,7 @@ window.OverworldMaps = {
         type: "Person",
         x: utils.withGrid(8),
         y: utils.withGrid(8),
-        src: "/images/characters/people/npc2.png",
+        src: "/images/characters/people/secondBoss.png",
         behaviorLoop: [
           { type: "stand", direction: "up", time: 400, },
           { type: "stand", direction: "left", time: 800, },
@@ -680,17 +680,17 @@ window.OverworldMaps = {
         type: "Person",
         x: utils.withGrid(3),
         y: utils.withGrid(5),
-        src: "/images/characters/people/secondBoss.png",
+        src: "/images/characters/people/npc2.png",
         talking: [
           {
-            required: ["chefRootie"],
+            required: ["chefProsperin"],
             events: [ {type: "textMessage", faceHero:["greenKitchenNpcC"], text: "Meus vegetais precisam crescer mais."} ]
           },
           {
             events: [
               { type: "textMessage", text: "Vegetais são o combustível para o coração e a alma!", faceHero: "greenKitchenNpcC" },
-              { type: "battle", enemyId: "chefRootie", arena: "green-kitchen" },
-              { type: "addStoryFlag", flag: "chefRootie"},
+              { type: "battle", enemyId: "chefProsperin", arena: "green-kitchen" },
+              { type: "addStoryFlag", flag: "chefProsperin"},
             ]
           }
         ]

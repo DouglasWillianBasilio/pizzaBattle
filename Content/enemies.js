@@ -27,8 +27,8 @@ window.Enemies = {
       },
     }
   },
-  "chefRootie": {
-    name: "Rootie",
+  "chefProsperin": {
+    name: "Prosperin",
     src: "/images/characters/people/secondBoss.png",
     pizzas: {
       "a": {
@@ -39,7 +39,7 @@ window.Enemies = {
     }
   },
   "streetNorthBattle": {
-    name: "Pizza Thug",
+    name: "NPC 1",
     src: "/images/characters/people/npc8.png",
     pizzas: {
       "a": {
@@ -50,7 +50,7 @@ window.Enemies = {
     }
   },
   "diningRoomBattle": {
-    name: "Pizza Thug",
+    name: "NPC 2",
     src: "/images/characters/people/npc8.png",
     pizzas: {
       "a": {
@@ -66,7 +66,7 @@ window.Enemies = {
     }
   },
   "streetBattle": {
-    name: "Pizza Thug",
+    name: "NPC 3",
     src: "/images/characters/people/npc8.png",
     pizzas: {
       "a": {
