@@ -253,7 +253,7 @@ window.OverworldMaps = {
         talking: [
           {
             events: [
-              { type: "textMessage", text: "** They don't want to talk to you **",},
+              { type: "textMessage", text: "** Eles não querem nem te dar bom dia! **",},
             ]
           }
         ]
@@ -266,7 +266,7 @@ window.OverworldMaps = {
         talking: [
           {
             events: [
-              { type: "textMessage", text: "People take their jobs here very seriously.", faceHero: "kitchenNpcB" },
+              { type: "textMessage", text: "Aqui o pessoal leva o trabalho muito a sério.", faceHero: "kitchenNpcB" },
             ]
           }
         ],
