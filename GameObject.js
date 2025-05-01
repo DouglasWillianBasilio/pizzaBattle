@@ -10,19 +10,17 @@ class GameObject {
       src: config.src || "/images/characters/people/hero.png",
     });
 
+    //These happen once on map startup.
     this.behaviorLoop = config.behaviorLoop || [];
     this.behaviorLoopIndex = 0;
-
     this.talking = config.talking || [];
-
+    this.retryTimeout = null;
   }
 
   mount(map) {
-    console.log("mounting!")
     this.isMounted = true;
-    map.addWall(this.x, this.y);
 
-    //Se tivermos um comportamento, iniciar após um curto atraso.
+    //If we have a behavior, kick off after a short delay
     setTimeout(() => {
       this.doBehaviorEvent(map);
     }, 10)
@@ -33,27 +31,37 @@ class GameObject {
 
   async doBehaviorEvent(map) { 
 
-    //Não fazer nada se houver uma cena mais importante ou se não houver configuração para fazer algo.
-    //De qualquer forma.
-    if (map.isCutscenePlaying || this.behaviorLoop.length === 0 || this.isStanding) {
+    //I don't have config to do anything
+    if (this.behaviorLoop.length === 0 ) {
       return;
     }
 
-    //Configurando nosso evento com informações relevantes.
+    //Retry later if a cutscene is playing
+    if (map.isCutscenePlaying) {
+      if (this.retryTimeout) {
+        clearTimeout(this.retryTimeout);
+      }
+      this.retryTimeout = setTimeout(() => {
+        this.doBehaviorEvent(map)
+      }, 1000)
+      return;
+    }
+
+    //Setting up our event with relevant info
     let eventConfig = this.behaviorLoop[this.behaviorLoopIndex];
     eventConfig.who = this.id;
 
-    //Criar uma instância de evento a partir da nossa próxima configuração de evento.
+    //Create an event instance out of our next event config
     const eventHandler = new OverworldEvent({ map, event: eventConfig });
     await eventHandler.init(); 
 
-    //Configurando o próximo evento para ser disparado.
+    //Setting the next event to fire
     this.behaviorLoopIndex += 1;
     if (this.behaviorLoopIndex === this.behaviorLoop.length) {
       this.behaviorLoopIndex = 0;
     } 
 
-    //Repetir
+    //Do it again!
     this.doBehaviorEvent(map);
     
 

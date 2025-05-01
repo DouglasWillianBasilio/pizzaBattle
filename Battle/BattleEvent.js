@@ -25,12 +25,12 @@ class BattleEvent {
     let who = this.event.onCaster ? caster : target;
 
     if (damage) {
-      //Modificar o alvo para ter menos pontos de vida (HP).
+      //modify the target to have less HP
       target.update({
         hp: target.hp - damage
       })
       
-      //Iniciar o efeito de piscar.
+      //start blinking
       target.pizzaElement.classList.add("battle-damage-blink");
     }
 
@@ -56,14 +56,14 @@ class BattleEvent {
     }
 
 
-    //Espera
+    //Wait a little bit
     await utils.wait(600)
 
-    //Atualizar os componentes da equipe.
+    //Update Team components
     this.battle.playerTeam.update();
     this.battle.enemyTeam.update();
 
-    //Parar Espera
+    //stop blinking
     target.pizzaElement.classList.remove("battle-damage-blink");
     resolve();
   }
@@ -78,7 +78,7 @@ class BattleEvent {
         return c.id !== caster.id && c.team === caster.team && c.hp > 0
       }),
       onComplete: submission => {
-        //submissão { qual movimento usar, em quem usá-lo }
+        //submission { what move to use, who to use it on }
         resolve(submission)
       }
     })
@@ -100,7 +100,7 @@ class BattleEvent {
   async replace(resolve) {
     const {replacement} = this.event;
 
-    //Limpar o antigo combatente.
+    //Clear out the old combatant
     const prevCombatant = this.battle.combatants[this.battle.activeCombatants[replacement.team]];
     this.battle.activeCombatants[replacement.team] = null;
     prevCombatant.update();
@@ -111,7 +111,7 @@ class BattleEvent {
     replacement.update();
     await utils.wait(400);
 
-    //Atualizar os componentes da equipe.
+    //Update Team components
     this.battle.playerTeam.update();
     this.battle.enemyTeam.update();
 
@@ -126,7 +126,7 @@ class BattleEvent {
         amount -= 1;
         combatant.xp += 1;
 
-        //Verificar se atingimos o ponto de aumento de nível.
+        //Check if we've hit level up point
         if (combatant.xp === combatant.maxXp) {
           combatant.xp = 0;
           combatant.maxXp = 100;

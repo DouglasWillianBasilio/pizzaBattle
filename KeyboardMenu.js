@@ -1,9 +1,10 @@
 class KeyboardMenu {
-  constructor() {
+  constructor(config={}) {
     this.options = []; //set by updater method
     this.up = null;
     this.down = null;
     this.prevFocus = null;
+    this.descriptionContainer = config.descriptionContainer || null;
   }
 
   setOptions(options) {
@@ -48,7 +49,7 @@ class KeyboardMenu {
     this.element = document.createElement("div");
     this.element.classList.add("KeyboardMenu");
 
-    //Elemento da caixa de descrição.
+    //Description box element
     this.descriptionElement = document.createElement("div");
     this.descriptionElement.classList.add("DescriptionBox");
     this.descriptionElement.innerHTML = (`<p>I will provide information!</p>`);
@@ -57,18 +58,18 @@ class KeyboardMenu {
 
   end() {
 
-    //Remover o elemento do menu e o elemento da descrição.
+    //Remove menu element and description element
     this.element.remove();
     this.descriptionElement.remove();
 
-    //Limpar as associações.
+    //Clean up bindings
     this.up.unbind();
     this.down.unbind();
   }
 
   init(container) {
     this.createElement();
-    container.appendChild(this.descriptionElement);
+    (this.descriptionContainer || container).appendChild(this.descriptionElement);
     container.appendChild(this.element);
 
     this.up = new KeyPressListener("ArrowUp", () => {

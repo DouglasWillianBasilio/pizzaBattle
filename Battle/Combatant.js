@@ -17,7 +17,7 @@ class Combatant {
   }
 
   get isActive() {
-    return this.battle.activeCombatants[this.team] === this.id;
+    return this.battle?.activeCombatants[this.team] === this.id;
   }
 
   get givesXp() {
@@ -58,23 +58,23 @@ class Combatant {
   }
 
   update(changes={}) {
-    //Atualizar qualquer coisa que estiver chegando.
+    //Update anything incoming
     Object.keys(changes).forEach(key => {
       this[key] = changes[key]
     });
 
-    //Atualizar a flag de ativo para mostrar a pizza e o HUD corretos.
+    //Update active flag to show the correct pizza & hud
     this.hudElement.setAttribute("data-active", this.isActive);
     this.pizzaElement.setAttribute("data-active", this.isActive);
 
-    //Atualizar o preenchimento percentual de HP (pontos de vida) e XP (pontos de experiência).
+    //Update HP & XP percent fills
     this.hpFills.forEach(rect => rect.style.width = `${this.hpPercent}%`)
     this.xpFills.forEach(rect => rect.style.width = `${this.xpPercent}%`)
 
-    //Atualizar o nível na tela.
+    //Update level on screen
     this.hudElement.querySelector(".Combatant_level").innerText = this.level;
 
-    //Atualizar status
+    //Update status
     const statusElement = this.hudElement.querySelector(".Combatant_status");
     if (this.status) {
       statusElement.innerText = this.status.type;
@@ -89,7 +89,7 @@ class Combatant {
 
     if (this.status?.type === "clumsy" && utils.randomFromArray([true, false, false])) {
       return [
-        { type: "textMessage", text: `${this.name} Eu cai!` },
+        { type: "textMessage", text: `${this.name} flops over!` },
       ]
     }
 
@@ -99,7 +99,7 @@ class Combatant {
   getPostEvents() {
     if (this.status?.type === "saucy") {
       return [
-        { type: "textMessage", text: "Toma essa!" },
+        { type: "textMessage", text: "Feelin' saucy!" },
         { type: "stateChange", recover: 5, onCaster: true }
       ]
     } 

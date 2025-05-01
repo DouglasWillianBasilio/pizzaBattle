@@ -7,7 +7,7 @@ class TurnCycle {
   }
 
   async turn() {
-    //Obter o lançador.
+    //Get the caster
     const casterId = this.battle.activeCombatants[this.currentTeam];
     const caster = this.battle.combatants[casterId];
     const enemyId = this.battle.activeCombatants[caster.team === "player" ? "enemy" : "player"]
@@ -19,7 +19,7 @@ class TurnCycle {
       enemy
     })
 
-    //Parar aqui se estivermos substituindo esta Pizza.
+    //Stop here if we are replacing this Pizza
     if (submission.replacement) {
       await this.onNewEvent({
         type: "replace",
@@ -35,10 +35,10 @@ class TurnCycle {
 
     if (submission.instanceId) {
 
-      //Adicionar à lista para persistir no estado do jogador mais tarde.
+      //Add to list to persist to player state later
       this.battle.usedInstanceIds[submission.instanceId] = true;
 
-      //Removendo o item do estado de batalha.
+      //Removing item from battle state
       this.battle.items = this.battle.items.filter(i => i.instanceId !== submission.instanceId)
     }
 
@@ -55,7 +55,7 @@ class TurnCycle {
       await this.onNewEvent(event);
     }
 
-    //O alvo morreu?
+    //Did the target die?
     const targetDead = submission.target.hp <= 0;
     if (targetDead) {
       await this.onNewEvent({ 
@@ -79,7 +79,7 @@ class TurnCycle {
       }
     }
 
-    //Nós temos uma equipe vencedora?
+    //Do we have a winning team?
     const winner = this.getWinningTeam();
     if (winner) {
       await this.onNewEvent({
@@ -90,7 +90,7 @@ class TurnCycle {
       return;
     }
       
-    //Temos um alvo morto, mas ainda não há um vencedor, então traga uma substituição.
+    //We have a dead target, but still no winner, so bring in a replacement
     if (targetDead) {
       const replacement = await this.onNewEvent({
         type: "replacementMenu",
@@ -107,8 +107,8 @@ class TurnCycle {
     }
 
 
-    //Verificar os eventos posteriores.
-    //(Faça as coisas DEPOIS de enviar sua jogada original)
+    //Check for post events
+    //(Do things AFTER your original turn submission)
     const postEvents = caster.getPostEvents();
     for (let i=0; i < postEvents.length; i++ ) {
       const event = {
@@ -121,7 +121,7 @@ class TurnCycle {
       await this.onNewEvent(event);
     }
 
-    //Verificar a expiração do status.
+    //Check for status expire
     const expiredEvent = caster.decrementStatus();
     if (expiredEvent) {
       await this.onNewEvent(expiredEvent)
@@ -150,10 +150,10 @@ class TurnCycle {
   async init() {
     await this.onNewEvent({
       type: "textMessage",
-      text: `${this.battle.enemy.name} vou te destroir!`
+      text: `${this.battle.enemy.name} wants to throw down!`
     })
 
-    //Comece a primeira rodada!
+    //Start the first turn!
     this.turn();
 
   }

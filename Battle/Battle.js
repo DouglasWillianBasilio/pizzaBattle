@@ -1,8 +1,9 @@
 class Battle {
-  constructor({ enemy, onComplete }) {
+  constructor({ enemy, onComplete, arena }) {
 
     this.enemy = enemy;
     this.onComplete = onComplete;
+    this.arena = arena;
 
     this.combatants = {
       // "player1": new Combatant({
@@ -52,11 +53,11 @@ class Battle {
       enemy: null, //"enemy1",
     }
 
-    // Adicionar dinamicamente a equipe do jogador.
+    //Dynamically add the Player team
     window.playerState.lineup.forEach(id => {
       this.addCombatant(id, "player", window.playerState.pizzas[id])
     });
-    // Agora a equipe inimiga.
+    //Now the enemy team
     Object.keys(this.enemy.pizzas).forEach(key => {
       this.addCombatant("e_"+key, "enemy", this.enemy.pizzas[key])
     })
@@ -65,7 +66,7 @@ class Battle {
     //Start empty
     this.items = []
 
-    //Adicionar itens do jogador.
+    //Add in player items
     window.playerState.items.forEach(item => {
       this.items.push({
         ...item,
@@ -85,15 +86,19 @@ class Battle {
         isPlayerControlled: team === "player"
       }, this)
 
-      //Preencher a primeira pizza ativa.
-
-      console.log(this)
+      //Populate first active pizza
       this.activeCombatants[team] = this.activeCombatants[team] || id
   }
 
   createElement() {
     this.element = document.createElement("div");
     this.element.classList.add("Battle");
+
+    // If provided, add a CSS class for setting the arena background
+    if (this.arena) {
+      this.element.classList.add(this.arena);
+    }
+
     this.element.innerHTML = (`
     <div class="Battle_hero">
       <img src="${'/images/characters/people/hero.png'}" alt="Hero" />
@@ -116,7 +121,7 @@ class Battle {
       combatant.id = key;
       combatant.init(this.element)
       
-      //Adicionar à equipe correta.
+      //Add to correct team
       if (combatant.team === "player") {
         this.playerTeam.combatants.push(combatant);
       } else if (combatant.team === "enemy") {
@@ -150,16 +155,17 @@ class Battle {
             }
           })
 
-          //Eliminar os itens usados pelo jogador.
+          //Get rid of player used items
           playerState.items = playerState.items.filter(item => {
             return !this.usedInstanceIds[item.instanceId]
           })
 
-
+          //Send signal to update
+          utils.emitEvent("PlayerStateUpdated");
         }
 
         this.element.remove();
-        this.onComplete();
+        this.onComplete(winner === "player");
       }
     })
     this.turnCycle.init();

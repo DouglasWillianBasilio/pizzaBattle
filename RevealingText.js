@@ -33,12 +33,12 @@ class RevealingText {
     let characters = [];
     this.text.split("").forEach(character => {
 
-      //Crie cada span e adicione-o ao elemento no DOM.
+      //Create each span, add to element in DOM
       let span = document.createElement("span");
       span.textContent = character;
       this.element.appendChild(span);
 
-      //Adicione este span ao nosso Array de estado interno.
+      //Add this span to our internal state Array
       characters.push({
         span,
         delayAfter: character === " " ? 0 : this.speed         

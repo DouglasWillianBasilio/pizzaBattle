@@ -27,7 +27,7 @@ class SubmissionMenu {
 
     const backOption = {
       label: "Go Back",
-      description: "Retorne para pagina anterior.",
+      description: "Return to previous page",
       handler: () => {
         this.keyboardMenu.setOptions(this.getPages().root)
       }
@@ -37,25 +37,25 @@ class SubmissionMenu {
       root: [
         {
           label: "Attack",
-          description: "Escolha um atack",
+          description: "Choose an attack",
           handler: () => {
-            //Fazer algo quando escolhido...
+            //Do something when chosen...
             this.keyboardMenu.setOptions( this.getPages().attacks )
           }
         },
         {
           label: "Items",
-          description: "Escolha um item",
+          description: "Choose an item",
           handler: () => {
-            //Ir para a página de itens...
+            //Go to items page...
             this.keyboardMenu.setOptions( this.getPages().items )
           }
         },
         {
           label: "Swap",
-          description: "Mudar Pizza",
+          description: "Change to another pizza",
           handler: () => { 
-            //Ver as opções de pizza.
+            //See pizza options
             this.keyboardMenu.setOptions( this.getPages().replacements )
           }
         },
@@ -95,7 +95,7 @@ class SubmissionMenu {
             label: replacement.name,
             description: replacement.description,
             handler: () => {
-              
+              //Swap me in, coach!
               this.menuSubmitReplacement(replacement)
             }
           }
@@ -124,7 +124,7 @@ class SubmissionMenu {
   }
 
   decide() {
-    //A fazer: Os inimigos devem decidir aleatoriamente o que fazer...
+    //TODO: Enemies should randomly decide what to do...
     this.menuSubmit(Actions[ this.caster.actions[0] ]);
   }
 
@@ -137,7 +137,7 @@ class SubmissionMenu {
   init(container) {
 
     if (this.caster.isPlayerControlled) {
-      //Mostrar alguma interface do usuário (UI).
+      //Show some UI
       this.showMenu(container)
     } else {
       this.decide()

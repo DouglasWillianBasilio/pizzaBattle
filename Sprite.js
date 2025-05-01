@@ -18,7 +18,7 @@ class Sprite {
       this.isShadowLoaded = true;
     }
 
-    //Configure a Animação e o Estado Inicial.
+    //Configure Animation & Initial State
     this.animations = config.animations || {
       "idle-down" : [ [0,0] ],
       "idle-right": [ [0,1] ],
@@ -29,14 +29,14 @@ class Sprite {
       "walk-up"   : [ [1,2],[0,2],[3,2],[0,2], ],
       "walk-left" : [ [1,3],[0,3],[3,3],[0,3], ]
     }
-    this.currentAnimation = "idle-right"; // config.currentAnimation || "idle-down";
+    this.currentAnimation = config.currentAnimation || "idle-down";
     this.currentAnimationFrame = 0;
 
     this.animationFrameLimit = config.animationFrameLimit || 8;
     this.animationFrameProgress = this.animationFrameLimit;
     
 
-    //Faça referência ao objeto do jogo.
+    //Reference the game object
     this.gameObject = config.gameObject;
   }
 
@@ -53,7 +53,7 @@ class Sprite {
   }
 
   updateAnimationProgress() {
-    //Diminua o progresso do quadro (frame progress).
+    //Downtick frame progress
     if (this.animationFrameProgress > 0) {
       this.animationFrameProgress -= 1;
       return;
